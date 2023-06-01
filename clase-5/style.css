@@ -1,6 +1,11 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 1rem;
 }
 
 form {
@@ -9,7 +14,6 @@ form {
   flex-direction: column;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   gap: 15px;
-  padding: 1rem;
 }
 
 input,
@@ -20,4 +24,12 @@ button {
 
 input {
   padding: 0.5rem;
+}
+
+button {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1.5rem;
 }
