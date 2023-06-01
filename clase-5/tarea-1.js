@@ -20,7 +20,8 @@ function calcularSalarioMensual() {
 }
 
 const $botonCalcularSalario = document.querySelector('.calcular-salario');
-$botonCalcularSalario.onclick = function () {
+$botonCalcularSalario.onclick = function (e) {
+  e.preventDefault();
   const salarioMensual = calcularSalarioMensual();
   mostrarSalarioMensual(salarioMensual);
 };
