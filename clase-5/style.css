@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+form {
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  gap: 15px;
+  padding: 1rem;
+}
+
+input,
+button {
+  width: 200px;
+  height: 35px;
+}
+
+input {
+  padding: 0.5rem;
+}
