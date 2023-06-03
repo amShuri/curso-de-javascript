@@ -121,3 +121,8 @@ function resaltarResultados() {
 asignarNumerosAleatorios();
 mostrarResultados();
 resaltarResultados();
+
+const botonRefrescarPagina = document.querySelector('button');
+botonRefrescarPagina.onclick = function () {
+  location.reload();
+};
