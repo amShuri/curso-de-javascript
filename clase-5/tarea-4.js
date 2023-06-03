@@ -98,22 +98,22 @@ function mostrarResultados() {
 }
 
 function resaltarResultados() {
-  const li = document.querySelectorAll('li');
+  const $listaItems = document.querySelectorAll('li');
   const numeroMasChico = obtenerNumeroMasChico();
   const numeroMasGrande = obtenerNumeroMasGrande();
   const numeroMasFrecuente = obtenerNumeroMasFrecuente();
 
-  for (let i = 0; i < li.length; i += 1) {
-    if (li[i].textContent == numeroMasChico) {
-      li[i].style.color = '#20b2aa';
+  for (let i = 0; i < $listaItems.length; i += 1) {
+    if ($listaItems[i].textContent == numeroMasChico) {
+      $listaItems[i].style.color = '#20b2aa';
     }
 
-    if (li[i].textContent == numeroMasGrande) {
-      li[i].style.color = '#f08080';
+    if ($listaItems[i].textContent == numeroMasGrande) {
+      $listaItems[i].style.color = '#f08080';
     }
 
-    if (li[i].textContent == numeroMasFrecuente) {
-      li[i].style.color = '#ec5fb6';
+    if ($listaItems[i].textContent == numeroMasFrecuente) {
+      $listaItems[i].style.color = '#ec5fb6';
     }
   }
 }
