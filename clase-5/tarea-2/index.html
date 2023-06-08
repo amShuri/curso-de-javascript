@@ -11,19 +11,23 @@
     <h1>Hola!</h1>
 
     <form action="#">
-      <label for="nombre-usuario">Nombre:</label>
-      <input type="text" name="nombre-usuario" id="nombre-usuario" />
+      <label for="input-nombre">Nombre:</label>
+      <input type="text" name="input-nombre" id="input-nombre" />
 
-      <label for="apellido-usuario">Apellido:</label>
-      <input type="text" name="apellido-usuario" id="apellido-usuario" />
+      <label for="input-apellido">Apellido:</label>
+      <input type="text" name="input-apellido" id="input-apellido" />
 
-      <label for="edad-usuario">Edad:</label>
-      <input type="number" name="edad-usuario" id="edad-usuario" />
+      <label for="input-edad">Edad:</label>
+      <input type="number" name="input-edad" id="input-edad" />
 
-      <button class="enviar-datos">Enviar Datos</button>
+      <button id="mostrar-informacion-usuario">Mostrar Información</button>
     </form>
 
-    <div class="resultado"></div>
+    <div id="resultado">
+      <p id="nombre-usuario"></p>
+      <p id="apellido-usuario"></p>
+      <p id="edad-usuario"></p>
+    </div>
 
     <script src="main.js"></script>
   </body>

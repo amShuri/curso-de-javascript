@@ -5,23 +5,24 @@
  */
 
 function obtenerSalarioAnual() {
-  const $salarioAnual = document.querySelector('.salario-anual');
+  const $salarioAnual = document.querySelector('#salario-anual');
   return $salarioAnual.value;
 }
 
-function mostrarSalarioMensual(salarioMensual) {
-  const $salarioMensual = document.querySelector('.salario-mensual');
-  $salarioMensual.value = salarioMensual;
-}
-
-function calcularSalarioMensual() {
-  const salarioMensual = obtenerSalarioAnual() / 12;
+function calcularSalarioMensual(salarioAnual) {
+  const MESES_EN_UN_ANIO = 12;
+  const salarioMensual = salarioAnual / MESES_EN_UN_ANIO;
   return salarioMensual;
 }
 
-const $botonCalcularSalario = document.querySelector('.calcular-salario');
-$botonCalcularSalario.onclick = function (e) {
+function mostrarSalarioMensual(salarioMensual) {
+  document.querySelector('#salario-mensual').value = salarioMensual;
+}
+
+document.querySelector('#mostrar-salario-mensual').onclick = function (e) {
   e.preventDefault();
-  const salarioMensual = calcularSalarioMensual();
+
+  const salarioAnual = obtenerSalarioAnual();
+  const salarioMensual = calcularSalarioMensual(salarioAnual);
   mostrarSalarioMensual(salarioMensual);
 };

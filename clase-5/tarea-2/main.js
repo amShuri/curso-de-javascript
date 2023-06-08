@@ -6,55 +6,42 @@
  * y va a cambiar el <h1> para decir "Bienvenido, nombreDeUsuario"!
  */
 
-function obtenerDatosUsuario() {
-  const $nombre = document.querySelector('#nombre-usuario');
-  const $apellido = document.querySelector('#apellido-usuario');
-  const $edad = document.querySelector('#edad-usuario');
-  return [$nombre.value, $apellido.value, $edad.value];
+function mostrarInformacionUsuario(nombre, apellido, edad) {
+  document.querySelector('#nombre-usuario').textContent = `Nombre: ${nombre}`;
+  document.querySelector('#apellido-usuario').textContent = `Apellido: ${apellido}`;
+  document.querySelector('#edad-usuario').textContent = `Edad: ${edad}`;
 }
 
-function crearCamposInformacion() {
-  const $resultado = document.querySelector('.resultado');
-  if ($resultado.childNodes.length > 0) return;
-
-  const $campoNombre = document.createElement('p');
-  const $campoApellido = document.createElement('p');
-  const $campoEdad = document.createElement('p');
-  $resultado.append($campoNombre, $campoApellido, $campoEdad);
-}
-
-function mostrarDatosUsuario(datos) {
-  const $camposDeTexto = document.querySelectorAll('.resultado p');
-  const $etiquetas = document.querySelectorAll('label');
-  for (let i = 0; i < $camposDeTexto.length; i += 1) {
-    $camposDeTexto[i].textContent = `${$etiquetas[i].textContent} ${datos[i]}`;
-  }
-}
-
-function actualizarTextoSaludo(nombre) {
+function mostrarSaludoPersonalizado(nombre) {
   const $mensajeSaludo = document.querySelector('h1');
-  const mensajeSaludoOriginal = 'Hola!';
-  if (!nombre) {
-    $mensajeSaludo.textContent = mensajeSaludoOriginal;
-  } else {
+  const mensajeOriginal = 'Hola!';
+
+  if (nombre) {
     $mensajeSaludo.textContent = `Hola, ${nombre}!`;
+  } else {
+    $mensajeSaludo.textContent = mensajeOriginal;
   }
 }
 
 function reiniciarFormulario() {
-  const $formulario = document.querySelector('form');
-  const $primerCampo = document.querySelector('form input');
-  $formulario.reset();
-  $primerCampo.focus();
+  document.querySelector('form').reset();
 }
 
-const botonEnviarDatos = document.querySelector('.enviar-datos');
-botonEnviarDatos.onclick = function (e) {
+function enfocarPrimerInput() {
+  document.querySelector('input').focus();
+}
+
+document.querySelector('#mostrar-informacion-usuario').onclick = function (e) {
   e.preventDefault();
 
-  const datosUsuario = obtenerDatosUsuario();
-  crearCamposInformacion();
-  mostrarDatosUsuario(datosUsuario);
-  actualizarTextoSaludo(datosUsuario[0]);
+  const nombre = document.querySelector('#input-nombre').value;
+  const apellido = document.querySelector('#input-apellido').value;
+  const edad = document.querySelector('#input-edad').value;
+  mostrarInformacionUsuario(nombre, apellido, edad);
+  mostrarSaludoPersonalizado(nombre);
   reiniciarFormulario();
+  enfocarPrimerInput();
 };
+
+// El focus estará en el primer input al entrar a la página.
+enfocarPrimerInput();

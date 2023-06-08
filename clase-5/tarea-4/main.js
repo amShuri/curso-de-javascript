@@ -7,101 +7,84 @@
  * 4. Obtener el número que más se repite y mostrarlo en un <em> pre-creado con el texto "El número más frecuente es..."
  */
 
-function obtenerNumerosAleatorios() {
-  return Math.floor(Math.random() * 100);
+function obtenerArrayNumerosAleatorios(cantidadNumeros) {
+  const numeros = [];
+
+  for (let i = 0; i < cantidadNumeros; i += 1) {
+    const numeroAleatorio = Math.floor(Math.random() * 100);
+    numeros.push(numeroAleatorio);
+  }
+  return numeros;
 }
 
-function asignarNumerosAleatorios() {
+function rellenarListaItems(arrayNumeros) {
   const $listaItems = document.querySelectorAll('li');
 
   for (let i = 0; i < $listaItems.length; i += 1) {
-    $listaItems[i].textContent = obtenerNumerosAleatorios();
+    $listaItems[i].textContent = arrayNumeros[i];
   }
 }
 
-function obtenerListaNumeros() {
-  const $listaItems = document.querySelectorAll('li');
-  const listaNumeros = [];
-
-  for (let i = 0; i < $listaItems.length; i += 1) {
-    const numerosTexto = Number($listaItems[i].textContent);
-    listaNumeros.push(numerosTexto);
-  }
-  return listaNumeros;
-}
-
-function obtenerPromedio() {
-  const listaNumeros = obtenerListaNumeros();
+function calcularPromedio(arrayNumeros) {
   let promedio = 0;
 
-  for (let i = 0; i < listaNumeros.length; i += 1) {
-    promedio += listaNumeros[i] / listaNumeros.length;
+  for (let i = 0; i < arrayNumeros.length; i += 1) {
+    promedio += arrayNumeros[i] / arrayNumeros.length;
   }
   return Math.floor(promedio);
 }
 
-function obtenerNumeroMasChico() {
-  const listaNumeros = obtenerListaNumeros();
-  let numeroMasChico = listaNumeros[0];
+function obtenerNumeroMasChico(arrayNumeros) {
+  let numeroMasChico = arrayNumeros[0];
 
-  for (let i = 0; i < listaNumeros.length; i += 1) {
-    if (numeroMasChico > listaNumeros[i]) {
-      numeroMasChico = listaNumeros[i];
+  for (let i = 0; i < arrayNumeros.length; i += 1) {
+    if (numeroMasChico > arrayNumeros[i]) {
+      numeroMasChico = arrayNumeros[i];
     }
   }
   return numeroMasChico;
 }
 
-function obtenerNumeroMasGrande() {
-  const listaNumeros = obtenerListaNumeros();
-  let numeroMasGrande = listaNumeros[0];
+function obtenerNumeroMasGrande(arrayNumeros) {
+  let numeroMasGrande = arrayNumeros[0];
 
-  for (let i = 0; i < listaNumeros.length; i += 1) {
-    if (numeroMasGrande < listaNumeros[i]) {
-      numeroMasGrande = listaNumeros[i];
+  for (let i = 0; i < arrayNumeros.length; i += 1) {
+    if (numeroMasGrande < arrayNumeros[i]) {
+      numeroMasGrande = arrayNumeros[i];
     }
   }
   return numeroMasGrande;
 }
 
-function obtenerNumeroMasFrecuente() {
-  const listaNumeros = obtenerListaNumeros();
+function obtenerNumeroMasFrecuente(arrayNumeros) {
   let contadorMaximo = 0;
   let numeroMasFrecuente = 0;
 
-  for (let i = 0; i < listaNumeros.length; i += 1) {
+  for (let i = 0; i < arrayNumeros.length; i += 1) {
     let contadorActual = 0;
-    for (let j = 0; j < listaNumeros.length; j += 1) {
-      if (listaNumeros[i] === listaNumeros[j]) {
+    for (let j = 0; j < arrayNumeros.length; j += 1) {
+      if (arrayNumeros[i] === arrayNumeros[j]) {
         contadorActual += 1;
       }
 
       if (contadorActual > contadorMaximo) {
         contadorMaximo = contadorActual;
-        numeroMasFrecuente = listaNumeros[i];
+        numeroMasFrecuente = arrayNumeros[i];
       }
     }
   }
   return contadorMaximo > 1 ? numeroMasFrecuente : 'No hay valores repetidos';
 }
 
-function mostrarResultados() {
-  const $promedio = document.querySelector('#promedio');
-  const $numeroMasChico = document.querySelector('#numero-mas-chico');
-  const $numeroMasGrande = document.querySelector('#numero-mas-grande');
-  const $numeroMasFrecuente = document.querySelector('#numero-mas-frecuente');
-
-  $promedio.textContent += obtenerPromedio();
-  $numeroMasChico.textContent += obtenerNumeroMasChico();
-  $numeroMasGrande.textContent += obtenerNumeroMasGrande();
-  $numeroMasFrecuente.textContent += obtenerNumeroMasFrecuente();
+function mostrarResultados(promedio, numeroMasChico, numeroMasGrande, numeroMasFrecuente) {
+  document.querySelector('#promedio').textContent += promedio;
+  document.querySelector('#numero-mas-chico').textContent += numeroMasChico;
+  document.querySelector('#numero-mas-grande').textContent += numeroMasGrande;
+  document.querySelector('#numero-mas-frecuente').textContent += numeroMasFrecuente;
 }
 
-function resaltarResultados() {
+function resaltarResultados(numeroMasChico, numeroMasGrande, numeroMasFrecuente) {
   const $listaItems = document.querySelectorAll('li');
-  const numeroMasChico = obtenerNumeroMasChico();
-  const numeroMasGrande = obtenerNumeroMasGrande();
-  const numeroMasFrecuente = obtenerNumeroMasFrecuente();
 
   for (let i = 0; i < $listaItems.length; i += 1) {
     if ($listaItems[i].textContent == numeroMasChico) {
@@ -118,11 +101,17 @@ function resaltarResultados() {
   }
 }
 
-asignarNumerosAleatorios();
-mostrarResultados();
-resaltarResultados();
+const $cantidadListaItems = document.querySelectorAll('li').length;
+const arrayNumeros = obtenerArrayNumerosAleatorios($cantidadListaItems);
+rellenarListaItems(arrayNumeros);
 
-const botonRefrescarPagina = document.querySelector('button');
-botonRefrescarPagina.onclick = function () {
+const promedio = calcularPromedio(arrayNumeros);
+const numeroMasChico = obtenerNumeroMasChico(arrayNumeros);
+const numeroMasGrande = obtenerNumeroMasGrande(arrayNumeros);
+const numeroMasFrecuente = obtenerNumeroMasFrecuente(arrayNumeros);
+mostrarResultados(promedio, numeroMasChico, numeroMasGrande, numeroMasFrecuente);
+resaltarResultados(numeroMasChico, numeroMasGrande, numeroMasFrecuente);
+
+document.querySelector('#actualizar-pagina').onclick = function () {
   location.reload();
 };

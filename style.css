@@ -9,15 +9,21 @@ body {
   padding: 1rem;
 }
 
+h1 {
+  margin-bottom: 10px;
+}
+
 form {
   align-items: start;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
 }
 
 label {
   cursor: pointer;
+  display: block;
+  margin-bottom: 4px;
 }
 
 input,
@@ -38,9 +44,6 @@ button {
 
 strong {
   font-size: 1.5rem;
-}
-
-strong {
   letter-spacing: 1.5px;
 }
 
@@ -50,15 +53,6 @@ div {
 
 em {
   display: block;
-}
-
-.resultados {
-  text-align: left;
-  width: 100%;
-}
-
-.resultado-tarea3 {
-  text-align: center;
 }
 
 ol {
@@ -77,6 +71,16 @@ li {
   width: max-content;
 }
 
+#resultado {
+  text-align: left;
+  width: 100%;
+}
+
+#resultado-tarea3 {
+  text-align: center;
+  width: 200px;
+}
+
 #numero-mas-chico {
   color: #20b2aa;
 }
@@ -88,3 +92,4 @@ li {
 #numero-mas-frecuente {
   color: #ec5fb6;
 }
+

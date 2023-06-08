@@ -6,68 +6,53 @@
  * el cual debe mostrar en un <strong> pre-creado el tiempo total de los videos.
  */
 
-function obtenerHoras() {
-  const $horas = document.querySelector('#horas');
-  return Number($horas.value);
-}
+let totalHoras = 0;
+let totalMinutos = 0;
+let totalSegundos = 0;
 
-function obtenerMinutos() {
-  const $minutos = document.querySelector('#minutos');
-  return Number($minutos.value);
-}
+function calcularTiempoTotal(horas, minutos, segundos) {
+  totalHoras += horas;
+  totalMinutos += minutos;
+  totalSegundos += segundos;
 
-function obtenerSegundos() {
-  const $segundos = document.querySelector('#segundos');
-  return Number($segundos.value);
+  if (totalSegundos >= 60) {
+    totalMinutos += Math.floor(totalSegundos / 60);
+    totalSegundos %= 60;
+  }
+
+  if (totalMinutos >= 60) {
+    totalHoras += Math.floor(totalMinutos / 60);
+    totalMinutos %= 60;
+  }
 }
 
 function mostrarTiempoTotal(horas, minutos, segundos) {
-  let horasFormateadas = horas < 10 ? '0' + horas : horas;
-  let minutosFormateados = minutos < 10 ? '0' + minutos : minutos;
-  let segundosFormateados = segundos < 10 ? '0' + segundos : segundos;
+  const horasConCerosIzq = horas.toString().padStart(2, '0');
+  const minutosConCerosIzq = minutos.toString().padStart(2, '0');
+  const segundosConCerosIzq = segundos.toString().padStart(2, '0');
 
-  const $resultado = document.querySelector('#tiempo-total');
-  $resultado.textContent = `${horasFormateadas}:${minutosFormateados}:${segundosFormateados}`;
+  const $tiempoTotal = document.querySelector('#tiempo-total');
+  $tiempoTotal.textContent = `${horasConCerosIzq}:${minutosConCerosIzq}:${segundosConCerosIzq}`;
 }
 
 function reiniciarFormulario() {
-  const $formulario = document.querySelector('form');
-  const $primerCampo = document.querySelector('form input');
-  $formulario.reset();
-  $primerCampo.focus();
+  document.querySelector('form').reset();
+}
+function enfocarPrimerInput() {
+  document.querySelector('input').focus();
 }
 
-function calcularTiempoTotal() {
-  let totalHoras = 0;
-  let totalMinutos = 0;
-  let totalSegundos = 0;
+document.querySelector('#boton-agregar-tiempo').onclick = function (e) {
+  e.preventDefault();
+  const horasIngresadas = Number(document.querySelector('#input-horas').value);
+  const minutosIngresados = Number(document.querySelector('#input-minutos').value);
+  const segundosIngresados = Number(document.querySelector('#input-segundos').value);
 
-  function agregarTiempo() {
-    totalHoras += obtenerHoras();
-    totalMinutos += obtenerMinutos();
-    totalSegundos += obtenerSegundos();
+  calcularTiempoTotal(horasIngresadas, minutosIngresados, segundosIngresados);
+  mostrarTiempoTotal(totalHoras, totalMinutos, totalSegundos);
+  reiniciarFormulario();
+  enfocarPrimerInput();
+};
 
-    while (totalMinutos >= 60) {
-      totalMinutos -= 60;
-      totalHoras += 1;
-    }
-    while (totalSegundos >= 60) {
-      totalSegundos -= 60;
-      totalMinutos += 1;
-    }
-  }
-  const $botonAgregarTiempo = document.querySelector('#agregar-tiempo');
-  $botonAgregarTiempo.onclick = function (e) {
-    e.preventDefault();
-
-    agregarTiempo();
-    mostrarTiempoTotal(totalHoras, totalMinutos, totalSegundos);
-    reiniciarFormulario();
-  };
-}
-
-/* Invocamos calcularTiempoTotal() una vez para asegurar el acceso correcto
- * de la funcion interna agregarTiempo() a las variables y su modificacion
- * cuando se utiliza $agregarBotonTiempo.
- */
-calcularTiempoTotal();
+// El focus estará en el primer input al entrar a la página.
+enfocarPrimerInput();
