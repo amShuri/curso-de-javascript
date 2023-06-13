@@ -39,6 +39,7 @@ button {
   margin-top: 8px;
 }
 
+label,
 em,
 ol {
   width: max-content;
@@ -67,6 +68,11 @@ li {
   font-weight: bold;
 }
 
+span {
+  display: flex;
+  gap: 2px;
+}
+
 #resultado {
   width: 200px;
 }
@@ -83,3 +89,11 @@ li {
   color: #ec5fb6;
 }
 
+.oculto {
+  display: none;
+}
+
+.btn-eliminar {
+  display: inline;
+  margin-left: 6px;
+}
