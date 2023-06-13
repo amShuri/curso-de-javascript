@@ -41,7 +41,8 @@ button {
 
 label,
 em,
-ol {
+ol,
+span {
   width: max-content;
 }
 
