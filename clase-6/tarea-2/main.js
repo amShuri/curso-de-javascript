@@ -8,31 +8,25 @@
 
 function crearIntegrante() {
   const $contenedor = document.querySelector('#contenedor-integrantes');
+  const numeroDeIntegrantes = $contenedor.childElementCount + 1;
+
   const $integrante = document.createElement('div');
   $integrante.className = 'integrante';
   $contenedor.appendChild($integrante);
 
   const $labelSalario = document.createElement('label');
+  $labelSalario.setAttribute('for', `salario-integrante-${numeroDeIntegrantes}`);
+  $labelSalario.textContent = `Salario del integrante #${numeroDeIntegrantes}`;
+
   const $inputSalario = document.createElement('input');
   $inputSalario.setAttribute('type', 'number');
+  $inputSalario.setAttribute('id', `salario-integrante-${numeroDeIntegrantes}`);
 
   const $btnEliminar = document.createElement('button');
   $btnEliminar.textContent = 'Eliminar';
   $btnEliminar.className = 'btn-eliminar';
 
   $integrante.append($labelSalario, $inputSalario, $btnEliminar);
-}
-
-function actualizarAtributosIntegrantes() {
-  const $integrantes = document.querySelectorAll('.integrante');
-  for (let i = 0; i < $integrantes.length; i += 1) {
-    const $label = $integrantes[i].querySelector('label');
-    const $input = $integrantes[i].querySelector('input');
-
-    $input.setAttribute('id', `salario-integrante-${i + 1}`);
-    $label.setAttribute('for', `salario-integrante-${i + 1}`);
-    $label.textContent = `Salario del integrante #${i + 1}`;
-  }
 }
 
 function obtenerSalarios(inputSalarios) {
@@ -47,9 +41,7 @@ function obtenerSalarios(inputSalarios) {
 }
 
 function mostrarResultado(elemento, resultado) {
-  if (elemento && resultado) {
-    document.querySelector(elemento).textContent = resultado;
-  }
+  document.querySelector(elemento).textContent = resultado || '';
 }
 
 function borrarResultados(elemento) {
@@ -67,6 +59,23 @@ function ocultarElemento(elemento) {
   document.querySelector(elemento).classList.add('oculto');
 }
 
+function eliminarIntegrante(e) {
+  const $integrante = e.target.parentNode;
+  $integrante.remove();
+}
+
+function actualizarAtributosIntegrantes() {
+  const $integrantes = document.querySelectorAll('.integrante');
+  for (let i = 0; i < $integrantes.length; i += 1) {
+    const $labelSalario = $integrantes[i].querySelector('label');
+    $labelSalario.setAttribute('for', `salario-integrante-${i + 1}`);
+    $labelSalario.textContent = `Salario del integrante #${i + 1}`;
+
+    const $inputSalario = $integrantes[i].querySelector('input');
+    $inputSalario.setAttribute('id', `salario-integrante-${i + 1}`);
+  }
+}
+
 function enfocarInputVacio() {
   const $inputs = document.querySelectorAll('input');
   for (let i = 0; i < $inputs.length; i += 1) {
@@ -81,7 +90,6 @@ document.querySelector('#agregar-integrante').onclick = function (e) {
   e.preventDefault();
 
   crearIntegrante();
-  actualizarAtributosIntegrantes();
   mostrarElemento('#btn-calcular');
   mostrarElemento('#resultado');
   enfocarInputVacio();
@@ -103,13 +111,11 @@ document.querySelector('#btn-calcular').onclick = function (e) {
   enfocarInputVacio();
 };
 
-// Eliminar integrantes
 document.querySelector('#contenedor-integrantes').onclick = function (e) {
   if (e.target.className !== 'btn-eliminar') return;
-
-  const $integrante = e.target.parentNode;
-  $integrante.remove();
+  eliminarIntegrante(e);
   actualizarAtributosIntegrantes();
+
   const hayIntegrantes = document.querySelector('.integrante');
   if (!hayIntegrantes) {
     ocultarElemento('#btn-calcular');
