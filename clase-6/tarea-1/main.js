@@ -42,9 +42,7 @@ function obtenerEdadIntegrante(inputEdades) {
 }
 
 function mostrarResultado(elemento, resultado) {
-  if (elemento && resultado) {
-    document.querySelector(elemento).textContent = resultado;
-  }
+  document.querySelector(elemento).textContent = resultado || '';
 }
 
 function borrarResultados(elemento) {
