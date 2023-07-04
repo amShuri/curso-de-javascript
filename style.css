@@ -98,3 +98,13 @@ span {
   display: inline;
   margin-left: 6px;
 }
+
+.error {
+  border: 2px solid red;
+}
+
+#errores > li {
+  color: #000;
+  list-style: none;
+  margin-top: 5px;
+}

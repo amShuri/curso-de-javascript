@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../style.css" />
+    <title>Tarea</title>
+  </head>
+  <body>
+    <form action="#">
+      <div class="contenedor-agregar">
+        <label for="cantidad-integrantes">Cantidad de Integrantes</label>
+        <input type="number" id="cantidad-integrantes" name="cantidad-integrantes" />
+        <button id="agregar-integrantes">Agregar Integrantes</button>
+      </div>
+
+      <div id="contenedor-integrantes" class="oculto"></div>
+
+      <div id="resultado" class="oculto">
+        <span>Edad promedio: <em id="edad-promedio"></em></span>
+        <span>Edad menor: <em id="edad-menor"> </em></span>
+        <span>Edad mayor: <em id="edad-mayor"> </em></span>
+      </div>
+
+      <div class="oculto">
+        <button id="calcular-resultados">Calcular</button>
+        <button id="reiniciar">Reiniciar</button>
+      </div>
+    </form>
+    <ul id="errores"></ul>
+    <script src="../calculos.js"></script>
+    <script src="main.js"></script>
+    <script src="pruebas.js"></script>
+  </body>
+</html>
