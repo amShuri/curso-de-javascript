@@ -1,6 +1,8 @@
 document.querySelector('#agregar-integrantes').onclick = function (e) {
   e.preventDefault();
-  const cantidadIntegrantes = document.querySelector('#cantidad-integrantes').value;
+  const cantidadIntegrantes = document.querySelector(
+    '#cantidad-integrantes'
+  ).value;
   const hayErrores = validarCantidadIntegrantes(cantidadIntegrantes);
 
   if (!hayErrores) {
@@ -11,7 +13,9 @@ document.querySelector('#agregar-integrantes').onclick = function (e) {
 
 document.querySelector('#calcular-resultados').onclick = function (e) {
   e.preventDefault();
-  const $inputsEdades = document.querySelectorAll('.input-edad');
+  const $inputsEdades = document.querySelectorAll(
+    '#contenedor-integrantes input'
+  );
   const hayErrores = validarEdadIntegrantes($inputsEdades);
 
   if (!hayErrores) {
@@ -25,6 +29,7 @@ document.querySelector('#calcular-resultados').onclick = function (e) {
 document.querySelector('#reiniciar').onclick = function (e) {
   e.preventDefault();
   eliminarIntegrantes();
+  eliminarErrores();
   eliminarResultados('#resultado em');
   restablecerInputsFormulario();
   actualizarInterfazFormulario();
@@ -32,11 +37,12 @@ document.querySelector('#reiniciar').onclick = function (e) {
 
 function crearIntegrantes(cantidadIntegrantes) {
   const $contenedor = document.querySelector('#contenedor-integrantes');
-  const $integrante = document.createElement('div');
-  $integrante.className = 'integrante';
-  $contenedor.appendChild($integrante);
 
   for (let i = 0; i < cantidadIntegrantes; i += 1) {
+    const $integrante = document.createElement('div');
+    $integrante.id = `integrante-${i + 1}`;
+    $contenedor.appendChild($integrante);
+
     const $labelEdad = document.createElement('label');
     $labelEdad.setAttribute('for', `edad-integrante-${i + 1}`);
     $labelEdad.textContent = `Edad Integrante #${i + 1}`;
@@ -45,7 +51,6 @@ function crearIntegrantes(cantidadIntegrantes) {
     $inputEdad.type = 'number';
     $inputEdad.name = `edad-integrante-${i + 1}`;
     $inputEdad.id = `edad-integrante-${i + 1}`;
-    $inputEdad.classList.add('input-edad');
 
     $integrante.append($labelEdad, $inputEdad);
   }
@@ -74,9 +79,11 @@ function eliminarResultados(elemento) {
 }
 
 function eliminarIntegrantes() {
-  document.querySelectorAll('.integrante').forEach((integrante) => {
-    integrante.remove();
-  });
+  document.querySelector('#contenedor-integrantes').textContent = '';
+}
+
+function eliminarErrores() {
+  document.querySelector('#errores').textContent = '';
 }
 
 function actualizarInterfazFormulario() {
@@ -98,14 +105,14 @@ function manejarErrores(errores) {
 
   keys.forEach((key) => {
     const error = errores[key];
-    const $errores = $contenedorErrores.querySelector(`li.${key}`);
+    const $errores = $contenedorErrores.querySelector(`li#${key}`);
     const $errorLabel = $form.querySelector(`label[for="${key}"]`).textContent;
 
     if (error && !$errores) {
       $form[key].classList.add('error');
       const $error = document.createElement('li');
       $error.textContent = `${$errorLabel} ${error}`;
-      $error.className = key;
+      $error.id = key;
       $contenedorErrores.appendChild($error);
     } else if (!error && $errores) {
       $errores.remove();
