@@ -1,0 +1,22 @@
+{
+  "name": "curso-de-javascript",
+  "version": "1.0.0",
+  "description": "Este repositorio contiene las tareas del curso de JavaScript ofrecido en https://argentinaprograma.com/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amShuri/curso-de-javascript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amShuri/curso-de-javascript/issues"
+  },
+  "homepage": "https://github.com/amShuri/curso-de-javascript#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.0"
+  }
+}
