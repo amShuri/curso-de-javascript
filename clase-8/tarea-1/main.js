@@ -1,8 +1,6 @@
 document.querySelector('#agregar-integrantes').onclick = function (e) {
   e.preventDefault();
-  const cantidadIntegrantes = document.querySelector(
-    '#cantidad-integrantes'
-  ).value;
+  const cantidadIntegrantes = document.querySelector('#cantidad-integrantes').value;
   const hayErrores = validarCantidadIntegrantes(cantidadIntegrantes);
 
   if (!hayErrores) {
@@ -13,9 +11,7 @@ document.querySelector('#agregar-integrantes').onclick = function (e) {
 
 document.querySelector('#calcular-resultados').onclick = function (e) {
   e.preventDefault();
-  const $inputsEdades = document.querySelectorAll(
-    '#contenedor-integrantes input'
-  );
+  const $inputsEdades = document.querySelectorAll('#contenedor-integrantes input');
   const hayErrores = validarEdadIntegrantes($inputsEdades);
 
   if (!hayErrores) {
@@ -41,18 +37,26 @@ function crearIntegrantes(cantidadIntegrantes) {
   for (let i = 0; i < cantidadIntegrantes; i += 1) {
     const $integrante = document.createElement('div');
     $integrante.id = `integrante-${i + 1}`;
+    $integrante.classList.add('col-auto', 'p-0');
     $contenedor.appendChild($integrante);
+
+    const $formFloat = document.createElement('div');
+    $formFloat.classList.add('form-floating', 'me-2', 'mb-2');
+    $integrante.appendChild($formFloat);
 
     const $labelEdad = document.createElement('label');
     $labelEdad.setAttribute('for', `edad-integrante-${i + 1}`);
     $labelEdad.textContent = `Edad Integrante #${i + 1}`;
+    $labelEdad.classList.add('text-black-50');
 
     const $inputEdad = document.createElement('input');
     $inputEdad.type = 'number';
     $inputEdad.name = `edad-integrante-${i + 1}`;
     $inputEdad.id = `edad-integrante-${i + 1}`;
+    $inputEdad.classList.add('form-control');
+    $inputEdad.placeholder = `Edad Integrante #${i + 1}`;
 
-    $integrante.append($labelEdad, $inputEdad);
+    $formFloat.append($inputEdad, $labelEdad);
   }
 }
 
@@ -68,7 +72,7 @@ function obtenerEdadIntegrante(inputEdades) {
 }
 
 function mostrarResultado(elemento, resultado) {
-  document.querySelector(elemento).textContent = resultado || '';
+  document.querySelector(elemento).value = resultado || '';
 }
 
 function eliminarResultados(elemento) {
@@ -88,7 +92,7 @@ function eliminarErrores() {
 
 function actualizarInterfazFormulario() {
   document.querySelectorAll('form > div').forEach((elemento) => {
-    elemento.classList.toggle('oculto');
+    elemento.classList.toggle('visually-hidden');
   });
 }
 
@@ -109,14 +113,14 @@ function manejarErrores(errores) {
     const $errorLabel = $form.querySelector(`label[for="${key}"]`).textContent;
 
     if (error && !$errores) {
-      $form[key].classList.add('error');
+      $form[key].classList.add('border', 'border-danger');
       const $error = document.createElement('li');
       $error.textContent = `${$errorLabel} ${error}`;
       $error.id = key;
       $contenedorErrores.appendChild($error);
     } else if (!error && $errores) {
       $errores.remove();
-      $form[key].classList.remove('error');
+      $form[key].classList.remove('border', 'border-danger');
     }
 
     if (error) {

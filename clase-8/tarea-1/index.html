@@ -3,31 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <title>Tarea</title>
   </head>
   <body>
-    <form action="#">
-      <div class="contenedor-agregar">
-        <label for="cantidad-integrantes">Cantidad de Integrantes</label>
-        <input type="number" id="cantidad-integrantes" name="cantidad-integrantes" />
-        <button id="agregar-integrantes">Agregar Integrantes</button>
+    <form class="container mt-3 ms-3 p-0" action="#">
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-floating">
+            <input
+              type="number"
+              name="cantidad-integrantes"
+              id="cantidad-integrantes"
+              class="form-control"
+              placeholder="Cantidad Integrantes"
+            />
+            <label for="cantidad-integrantes" class="text-black-50"
+              >Cantidad Integrantes</label
+            >
+          </div>
+          <div class="form-text my-2">Ingresa un valor numérico mayor a 0</div>
+          <button type="button" id="agregar-integrantes" class="form-control btn btn-primary">
+            Agregar
+          </button>
+        </div>
       </div>
 
-      <div id="contenedor-integrantes" class="oculto"></div>
+      <div id="contenedor-integrantes" class="row m-0 visually-hidden"></div>
 
-      <div id="resultado" class="oculto">
-        <span>Edad promedio: <em id="edad-promedio"></em></span>
-        <span>Edad menor: <em id="edad-menor"> </em></span>
-        <span>Edad mayor: <em id="edad-mayor"> </em></span>
+      <div id="resultado" class="row my-1 visually-hidden">
+        <div class="col-auto">
+          <p class="form-text my-0">Edad Promedio</p>
+          <input type="text" id="edad-promedio" class="mb-2" disabled />
+
+          <p class="form-text my-0">Edad Menor</p>
+          <input type="text" id="edad-menor" class="mb-2" disabled />
+
+          <p class="form-text my-0">Edad Mayor</p>
+          <input type="text" id="edad-mayor" class="mb-2" disabled />
+        </div>
       </div>
 
-      <div class="oculto">
-        <button id="calcular-resultados">Calcular</button>
-        <button id="reiniciar">Reiniciar</button>
+      <div id="botones" class="row visually-hidden">
+        <div class="col-auto">
+          <button id="calcular-resultados" class="btn btn-primary">Calcular</button>
+        </div>
+        <div class="col-auto">
+          <button id="reiniciar" class="btn btn-danger">Reiniciar</button>
+        </div>
       </div>
     </form>
-    <ul id="errores"></ul>
+    <ul id="errores" class="container mt-2 ms-3 p-0 list-inline"></ul>
+
     <script src="../calculos.js"></script>
     <script src="main.js"></script>
     <script src="pruebas.js"></script>
