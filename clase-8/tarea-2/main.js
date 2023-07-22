@@ -9,7 +9,7 @@ document.querySelector('#agregar-integrante').onclick = function (e) {
 document.querySelector('#btn-calcular').onclick = function (e) {
   e.preventDefault();
 
-  const $salarios = document.querySelectorAll('.input-salario');
+  const $salarios = document.querySelectorAll('#contenedor-integrantes input');
   const hayErrores = validarSalarioIntegrantes($salarios);
   if (!hayErrores) {
     const salarios = obtenerSalarios($salarios);
@@ -25,17 +25,17 @@ document.querySelector('#btn-calcular').onclick = function (e) {
 };
 
 document.querySelector('#contenedor-integrantes').onclick = function (e) {
-  if (e.target.className !== 'btn-eliminar') return;
+  if (e.target.id !== 'btn-eliminar') return;
   eliminarIntegrante(e);
+  eliminarResultados('#resultado input');
   actualizarAtributosIntegrantes();
-  const $salarios = document.querySelectorAll('.input-salario');
+  const $salarios = document.querySelectorAll('#contenedor-integrantes input');
   validarSalarioIntegrantes($salarios);
 
-  const hayIntegrantes = document.querySelector('.integrante');
+  const hayIntegrantes = document.querySelector('#contenedor-integrantes > div');
   if (!hayIntegrantes) {
     ocultarElemento('#btn-calcular');
     ocultarElemento('#resultado');
-    eliminarResultados('#resultado em');
   }
 };
 
@@ -44,22 +44,25 @@ function crearIntegrante() {
   const numeroDeIntegrantes = $contenedor.childElementCount + 1;
 
   const $integrante = document.createElement('div');
-  $integrante.className = 'integrante';
+  $integrante.id = `integrante-${numeroDeIntegrantes}`;
+  $integrante.classList.add('my-2');
   $contenedor.appendChild($integrante);
 
   const $labelSalario = document.createElement('label');
   $labelSalario.setAttribute('for', `salario-integrante-${numeroDeIntegrantes}`);
   $labelSalario.textContent = `Salario Integrante #${numeroDeIntegrantes}`;
+  $labelSalario.classList.add('form-text', 'd-block');
 
   const $inputSalario = document.createElement('input');
   $inputSalario.type = 'number';
   $inputSalario.name = `salario-integrante-${numeroDeIntegrantes}`;
   $inputSalario.id = `salario-integrante-${numeroDeIntegrantes}`;
-  $inputSalario.classList.add('input-salario');
+  $inputSalario.classList.add('form-control', 'd-inline', 'align-middle', 'w-auto', 'me-2');
 
   const $btnEliminar = document.createElement('button');
   $btnEliminar.textContent = 'Eliminar';
-  $btnEliminar.className = 'btn-eliminar';
+  $btnEliminar.id = 'btn-eliminar';
+  $btnEliminar.classList.add('btn', 'btn-outline-danger');
 
   $integrante.append($labelSalario, $inputSalario, $btnEliminar);
 }
@@ -76,32 +79,34 @@ function obtenerSalarios(inputSalarios) {
 }
 
 function mostrarResultado(elemento, resultado) {
-  document.querySelector(elemento).textContent = resultado || 0;
+  document.querySelector(elemento).value = resultado || 0;
 }
 
 function eliminarResultados(elemento) {
   const $resultados = document.querySelectorAll(elemento);
   for (let i = 0; i < $resultados.length; i += 1) {
-    $resultados[i].textContent = '';
+    $resultados[i].value = '';
   }
 }
 
 function mostrarElemento(elemento) {
-  document.querySelector(elemento).classList.remove('oculto');
+  document.querySelector(elemento).classList.remove('visually-hidden');
 }
 
 function ocultarElemento(elemento) {
-  document.querySelector(elemento).classList.add('oculto');
+  document.querySelector(elemento).classList.add('visually-hidden');
 }
 
 function eliminarIntegrante(e) {
-  const $integrantes = e.target.parentNode;
+  const $integrantes = e.target.closest('#contenedor-integrantes > div');
   $integrantes.remove();
 }
 
 function actualizarAtributosIntegrantes() {
-  const $integrantes = document.querySelectorAll('.integrante');
+  const $integrantes = document.querySelectorAll('#contenedor-integrantes > div');
   for (let i = 0; i < $integrantes.length; i += 1) {
+    $integrantes[i].id = `integrante-${i + 1}`;
+
     const $labelSalario = $integrantes[i].querySelector('label');
     $labelSalario.setAttribute('for', `salario-integrante-${i + 1}`);
     $labelSalario.textContent = `Salario Integrante #${i + 1}`;
