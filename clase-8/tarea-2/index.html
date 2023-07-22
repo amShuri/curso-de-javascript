@@ -4,25 +4,41 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <title>Tarea 2</title>
   </head>
   <body>
-    <form action="">
-      <button id="agregar-integrante">Agregar Integrante</button>
+    <form class="container m-3" action="#">
+      <button id="agregar-integrante" class="btn btn-outline-primary">
+        Agregar Integrante
+      </button>
 
       <div id="contenedor-integrantes"></div>
 
-      <button id="btn-calcular" class="oculto">Calcular</button>
+      <button id="btn-calcular" class="btn btn-outline-success mb-2 visually-hidden">
+        Calcular
+      </button>
 
-      <div id="resultado" class="oculto">
-        <span>Menor salario: <em id="menor-salario"></em></span>
-        <span>Mayor salario: <em id="mayor-salario"></em></span>
-        <span>Promedio anual: <em id="promedio-anual"></em></span>
-        <span>Promedio mensual: <em id="promedio-mensual"></em></span>
+      <div id="resultado" class="row visually-hidden">
+        <div class="col-auto">
+          <p class="m-0 form-text">Menor Salario</p>
+          <input type="text" id="menor-salario" class="mb-2" disabled />
+
+          <p class="m-0 form-text">Mayor Salario</p>
+          <input type="text" id="mayor-salario" disabled />
+        </div>
+
+        <div class="col-auto">
+          <p class="m-0 form-text">Promedio Anual</p>
+          <input type="text" id="promedio-anual" class="mb-2" disabled />
+
+          <p class="m-0 form-text">Promedio Mensual</p>
+          <input type="text" id="promedio-mensual" disabled />
+        </div>
       </div>
     </form>
-    <ul id="errores"></ul>
+    <ul id="errores" class="row ms-3 p-0 list-inline"></ul>
+
     <script src="../calculos.js"></script>
     <script src="main.js"></script>
     <script src="pruebas.js"></script>
