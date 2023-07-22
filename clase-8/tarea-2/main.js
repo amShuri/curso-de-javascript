@@ -132,13 +132,13 @@ function manejarErrores(errores) {
     const $errorLabel = $form.querySelector(`label[for="${key}"]`).textContent;
 
     if (error) {
-      $form[key].classList.add('error');
+      $form[key].classList.add('border', 'border-danger');
       const $error = document.createElement('li');
       $error.textContent = `${$errorLabel} ${error}`;
       $contenedorErrores.appendChild($error);
       cantidadErrores += 1;
     } else {
-      $form[key].classList.remove('error');
+      $form[key].classList.remove('border', 'border-danger');
     }
   });
   return cantidadErrores;
